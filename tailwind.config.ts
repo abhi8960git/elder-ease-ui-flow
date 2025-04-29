@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,15 +53,12 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				elderease: {
+					blue: "#D3E4FD",
+					purple: "#E5DEFF",
+					pink: "#FFDEE2",
+					peach: "#FDE1D3",
+					gray: "#F1F0FB"
 				}
 			},
 			borderRadius: {
@@ -84,11 +82,27 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-soft': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.7' }
+				},
+				'fade-in': {
+					'0%': { opacity: '0', transform: 'translateY(10px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
+				'fade-in': 'fade-in 0.3s ease-out'
+			},
+			fontSize: {
+				'2xl': '1.75rem',
+				'3xl': '2rem',
+				'4xl': '2.25rem',
+				'5xl': '3rem',
 			}
 		}
 	},
