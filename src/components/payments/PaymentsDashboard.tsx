@@ -87,7 +87,7 @@ const PaymentsDashboard = () => {
   
   const confirmPayment = (id: string) => {
     const updatedPayments = payments.map(payment => 
-      payment.id === id ? { ...payment, status: 'completed', txHash: `0x${Math.random().toString(16).substring(2, 10)}...${Math.random().toString(16).substring(2, 6)}` } : payment
+      payment.id === id ? { ...payment, status: 'completed' as const, txHash: `0x${Math.random().toString(16).substring(2, 10)}...${Math.random().toString(16).substring(2, 6)}` } : payment
     );
     
     setPayments(updatedPayments);
@@ -101,7 +101,9 @@ const PaymentsDashboard = () => {
     setTimeout(() => {
       setProcessingVoice(false);
       setVoiceConfirmDialog(false);
-      confirmPayment(selectedPayment?.id || '');
+      if (selectedPayment) {
+        confirmPayment(selectedPayment.id);
+      }
       toast.success("Payment confirmed via voice authorization");
     }, 2000);
   };

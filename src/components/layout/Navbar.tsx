@@ -83,8 +83,44 @@ const Navbar = () => {
             </nav>
           </div>
           
-          {/* Mobile hamburger menu */}
-          <div className="flex md:hidden">
+          {/* Mobile Menu - Repositioned to the right corner */}
+          <div className="flex md:hidden items-center ml-auto">
+            {/* User Profile - Left of Hamburger */}
+            <div className="mr-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative rounded-full p-0" size="icon">
+                    <Avatar className="h-9 w-9">
+                      <AvatarImage src="/placeholder.svg" alt="User" />
+                      <AvatarFallback>
+                        <UserRound className="w-5 h-5" />
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium">John Doe</p>
+                      <p className="text-xs text-gray-500">Age: 74</p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <UserRound className="w-4 h-4 mr-2" /> Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <MessageSquare className="w-4 h-4 mr-2" /> Messages
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <LogOut className="w-4 h-4 mr-2" /> Log out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            
+            {/* Hamburger Menu */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" className="p-2" size="icon">
@@ -131,7 +167,8 @@ const Navbar = () => {
             </Sheet>
           </div>
           
-          <div className="flex items-center">
+          {/* Desktop User Profile */}
+          <div className="hidden md:flex items-center">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative rounded-full" size="icon">

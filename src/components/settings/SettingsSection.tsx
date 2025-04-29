@@ -4,13 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
-import { User, Phone, Wallet } from "lucide-react";
+import { User, Phone, Wallet, Mic, Check } from "lucide-react";
 import { toast } from "sonner";
 import { useIsMobile } from '../../hooks/use-mobile';
 
 const SettingsSection = () => {
   const [voiceAssistant, setVoiceAssistant] = useState(true);
   const [textSize, setTextSize] = useState("normal");
+  const [walletConnected, setWalletConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState("");
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [isVoiceListening, setIsVoiceListening] = useState(false);
   const isMobile = useIsMobile();
   
   const emergencyContacts = [
@@ -20,6 +24,40 @@ const SettingsSection = () => {
   
   const saveSettings = () => {
     toast.success("Settings saved successfully");
+  };
+
+  const connectWallet = async () => {
+    setIsConnecting(true);
+    
+    // Simulate wallet connection process
+    setTimeout(() => {
+      const mockAddress = "0x" + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      setWalletAddress(mockAddress);
+      setWalletConnected(true);
+      setIsConnecting(false);
+      toast.success("Wallet connected successfully");
+    }, 1500);
+  };
+
+  const disconnectWallet = () => {
+    setWalletConnected(false);
+    setWalletAddress("");
+    toast.success("Wallet disconnected");
+  };
+  
+  const toggleVoiceAssistant = (checked: boolean) => {
+    setVoiceAssistant(checked);
+    toast.success(checked ? "Voice assistant enabled" : "Voice assistant disabled");
+  };
+  
+  const activateVoiceAssistant = () => {
+    setIsVoiceListening(true);
+    
+    // Simulate voice recognition
+    setTimeout(() => {
+      setIsVoiceListening(false);
+      toast.success("Voice command recognized: 'Show weather forecast'");
+    }, 2000);
   };
 
   return (
@@ -37,11 +75,25 @@ const SettingsSection = () => {
                   <Label htmlFor="voice-assistant">Voice Assistant</Label>
                   <p className="text-sm text-muted-foreground">Enable or disable voice assistant functionality</p>
                 </div>
-                <Switch
-                  id="voice-assistant"
-                  checked={voiceAssistant}
-                  onCheckedChange={setVoiceAssistant}
-                />
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="voice-assistant"
+                    checked={voiceAssistant}
+                    onCheckedChange={toggleVoiceAssistant}
+                  />
+                  {voiceAssistant && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className={`ml-2 ${isVoiceListening ? 'bg-elderease-purple text-primary-foreground' : ''}`}
+                      onClick={activateVoiceAssistant}
+                      disabled={isVoiceListening}
+                    >
+                      <Mic className={`h-4 w-4 ${isVoiceListening ? 'animate-pulse' : ''}`} />
+                      <span className="ml-1">{isVoiceListening ? 'Listening...' : 'Test Voice'}</span>
+                    </Button>
+                  )}
+                </div>
               </div>
               
               <div className="space-y-2 md:space-y-3">
@@ -79,18 +131,43 @@ const SettingsSection = () => {
           <div className="card-elder">
             <h3 className="text-lg md:text-xl font-medium mb-3 md:mb-4">Payment Settings</h3>
             
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-elderease-gray p-3 rounded-lg">
-              <div className="flex items-center mb-2 sm:mb-0">
-                <Wallet className="text-primary-foreground mr-3" />
-                <div>
-                  <p className="font-medium">MetaMask Connected</p>
-                  <p className="text-sm text-muted-foreground">0x1234...5678</p>
+            {!walletConnected ? (
+              <div className="bg-elderease-gray p-4 rounded-lg flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center">
+                  <Wallet className="text-primary-foreground mr-3" />
+                  <div>
+                    <p className="font-medium">Connect Your Wallet</p>
+                    <p className="text-sm text-muted-foreground">Connect MetaMask or other Ethereum wallets</p>
+                  </div>
+                </div>
+                <Button 
+                  onClick={connectWallet} 
+                  disabled={isConnecting}
+                  className="w-full sm:w-auto"
+                  size={isMobile ? "sm" : "default"}
+                >
+                  {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+                </Button>
+              </div>
+            ) : (
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-elderease-gray p-4 rounded-lg">
+                <div className="flex items-center mb-3 sm:mb-0">
+                  <Wallet className="text-primary-foreground mr-3" />
+                  <div>
+                    <p className="font-medium">Wallet Connected</p>
+                    <p className="text-sm font-mono text-muted-foreground">{walletAddress.substring(0, 6)}...{walletAddress.substring(walletAddress.length - 4)}</p>
+                  </div>
+                </div>
+                <div className="flex w-full sm:w-auto space-x-2">
+                  <Button variant="outline" size={isMobile ? "sm" : "default"} className="w-full sm:w-auto">
+                    View Activity
+                  </Button>
+                  <Button variant="destructive" size={isMobile ? "sm" : "default"} onClick={disconnectWallet} className="w-full sm:w-auto">
+                    Disconnect
+                  </Button>
                 </div>
               </div>
-              <Button variant="outline" size={isMobile ? "sm" : "default"}>
-                Change
-              </Button>
-            </div>
+            )}
           </div>
           
           <div className="card-elder">
