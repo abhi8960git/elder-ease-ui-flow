@@ -66,17 +66,20 @@ const HeroSection = () => {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4">
                 {greetingTime()}, John!
               </h1>
-              <p className="text-xl md:text-2xl text-gray-700">
+              <p className="text-xl md:text-2xl text-gray-700 mb-4 md:mb-6">
                 How can I assist you today?
+              </p>
+              <p className="hidden md:block text-base text-gray-600">
+                Try using the voice assistant to quickly get what you need.
               </p>
             </div>
             <div className="flex flex-col items-center">
               <Button 
                 size="lg" 
-                className="h-20 w-20 rounded-full bg-elderease-purple hover:bg-elderease-pink text-primary-foreground shadow-md"
+                className="h-16 w-16 md:h-20 md:w-20 rounded-full bg-elderease-purple hover:bg-elderease-pink text-primary-foreground shadow-md float-animation"
                 onClick={() => setVoiceDialog(true)}
               >
-                <Mic className="h-8 w-8" />
+                <Mic className="h-6 w-6 md:h-8 md:w-8" />
               </Button>
               <span className="mt-2 text-sm text-gray-600">Voice Assistant</span>
             </div>

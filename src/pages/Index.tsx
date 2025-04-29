@@ -8,6 +8,7 @@ import PaymentsDashboard from '../components/payments/PaymentsDashboard';
 import AgentChat from '../components/chat/AgentChat';
 import EmergencyButton from '../components/layout/EmergencyButton';
 import Footer from '../components/layout/Footer';
+import Illustrations from '../components/home/Illustrations';
 
 const Index = () => {
   return (
@@ -15,6 +16,7 @@ const Index = () => {
       <Navbar />
       <main className="flex-1">
         <HeroSection />
+        <Illustrations />
         <ServicesPanel />
         <AlertsFeed />
         <PaymentsDashboard />

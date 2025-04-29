@@ -38,6 +38,12 @@
     font-size: 18px;
   }
 
+  @media (max-width: 768px) {
+    :root {
+      font-size: 16px;
+    }
+  }
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -110,10 +116,21 @@
   }
   
   .btn-service {
-    @apply flex flex-col items-center justify-center p-5 rounded-xl bg-elderease-gray hover:bg-elderease-purple/50 transition-all duration-300;
+    @apply flex flex-col items-center justify-center p-4 md:p-5 rounded-xl bg-elderease-gray hover:bg-elderease-purple/50 transition-all duration-300;
   }
   
   .alert-item {
-    @apply p-4 mb-3 rounded-lg border border-l-4 shadow-sm;
+    @apply p-3 md:p-4 mb-2 md:mb-3 rounded-lg border border-l-4 shadow-sm;
   }
+}
+
+/* Responsive Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.float-animation {
+  animation: float 4s ease-in-out infinite;
 }
